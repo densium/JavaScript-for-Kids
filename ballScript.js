@@ -22,7 +22,7 @@ var randomInt = function () {
 var Ball = function () {
     this.x = width / 2;
     this.y = height / 2;
-    this.radius = Math.floor(Math.random() * 9 + 2);
+    this.radius = 8; // random radius // Math.floor(Math.random() * 9 + 2)
     this.xSpeed = randomInt();
     this.ySpeed = randomInt();
     this.color = randomColor();
@@ -35,38 +35,43 @@ var Ball = function () {
         circle(this.x, this.y, this.radius, true);
     };
     this.checkCollision = function () {
-        if (this.x < 0 || this.x > width) {
-            this.xSpeed = -this.xSpeed;
+        if (this.x < 0) {
+            this.x = width;
+        } else if (this.x > width) {
+            this.x = 0;
+        } else if (this.y < 0) {
+            this.y = height;
+        } else if (this.y > height) {
+            this.y = 0;
         }
-        if (this.y < 0 || this.y > height) {
-            this.ySpeed = -this.ySpeed;
+    };
+    this.setDirection = function (direction) {
+        switch (direction) {
+            case 38: // up
+                this.xSpeed = 0;
+                this.ySpeed = -5;
+                break;
+            case 40: // down
+                this.xSpeed = 0;
+                this.ySpeed = 5;
+                break;
+            case 37: // left
+                this.xSpeed = -5;
+                this.ySpeed = 0;
+                break;
+            case 39: // right
+                this.xSpeed = 5;
+                this.ySpeed = 0;
+                break;
+            case 32: // space, stop
+                this.xSpeed = 0;
+                this.ySpeed = 0;
+                break;
+        
+            default:
+                console.log("Key is not defined");
+                break;
         }
     };
     
 };
-
-var ballsCreator = function (howManyBalls) {     
-    for (let i = 0; i < howManyBalls; i++) {
-        ballsArray.push(new Ball());
-    }
-};
-
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var width = canvas.width;
-var height = canvas.height;
-var ballsArray = [];
-
-// start parameters
-var frameSpeed = 15;
-ballsCreator(80); // how many balls to draw
-
-setInterval(function () {
-    ctx.clearRect(0, 0, width, height);
-
-    ballsArray.forEach(element => {element.draw()});
-    ballsArray.forEach(element => {element.move()});
-    ballsArray.forEach(element => {element.checkCollision()});
-
-    ctx.strokeRect(0, 0, width, height);
-}, frameSpeed);
