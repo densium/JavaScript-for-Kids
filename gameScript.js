@@ -1,5 +1,36 @@
-// animating balls
+// animating game
 
+var blocksize = 10;
+var widthInBlocks = width / blocksize;
+var heightInBlocks = height / blocksize;
+var score = 0;
+
+function drawBorder() {
+    ctx.fillStyle = "Gray";
+    ctx.fillRect =(0, 0, width, blocksize);
+    ctx.fillRect =(0, height - blocksize, width, blocksize);
+    ctx.fillRect =(0, 0, blocksize, height);
+    ctx.fillRect =(width - blocksize, 0, blocksize, height);
+};
+
+function drawScore() {
+    ctx.font = "20px Courier";
+    ctx.fillStyle = "Black";
+    ctx.textAlign = "left";
+    сtx.textBaseline = "top";
+    ctx.fillText("Cчет" + score, blocksize, blocksize);
+};
+
+function gameOver() {
+    clearInterval(intevalId);
+    ctx.font = "60 px Courier";
+    ctx.fillStyle = "Black";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Конец игры", width / 2, height / 2);
+};
+
+/*
 var randomColor = function () {
     let colorArr = ["Red", "Green", "Blue", "Purple", "Magenta", "Yellow"];
     return colorArr[Math.floor(Math.random() * colorArr.length)];
@@ -75,3 +106,4 @@ var Ball = function () {
     };
     
 };
+*/
