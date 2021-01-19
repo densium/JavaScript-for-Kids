@@ -11,7 +11,7 @@ function drawBorder() {
     ctx.fillRect =(0, height - blocksize, width, blocksize);
     ctx.fillRect =(0, 0, blocksize, height);
     ctx.fillRect =(width - blocksize, 0, blocksize, height);
-};
+}
 
 function drawScore() {
     ctx.font = "20px Courier";
@@ -19,7 +19,7 @@ function drawScore() {
     ctx.textAlign = "left";
     сtx.textBaseline = "top";
     ctx.fillText("Cчет" + score, blocksize, blocksize);
-};
+}
 
 function gameOver() {
     clearInterval(intevalId);
@@ -28,7 +28,84 @@ function gameOver() {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText("Конец игры", width / 2, height / 2);
-};
+}
+
+function Block(col, row) {
+    this.col = col;
+    this.row = row;
+    this.drawSquare = function (color) {
+        var x = this.col * blocksize;
+        var x = this.row * blocksize;
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, blocksize, blocksize);
+    };
+    this.drawCircle = function (color) {
+        var centerX = this.col * blocksize + blocksize / 2;
+        var centerY = this.row * blocksize + blocksize / 2;
+        ctx.fillStyle = color;
+        circle(centerX, centerY, blocksize / 2, true);
+    };
+    this.equal = function (otherBlock) {
+        return this.col === otherBlock.col && this.row === otherBlock.row;
+    };
+    
+}
+
+function Snake() {
+    this.direction = "right";
+    this.nextDirection = "right";
+    
+    this.segments = [
+        new Block(7, 5),
+        new Block(6, 5),
+        new Block(5, 5),
+    ];
+
+    this.draw = function () {
+        this.segments.forEach(element => {
+            element.drawSquare("Blue");
+        });
+    };
+
+    this.move = function () {
+        var head = this.segments[0];
+        var newHead;
+        
+        this.direction = this.nextDirection;
+
+        switch (this.direction) {
+            case "right":
+                newHead = new Block(head.col + 1, head.row);
+                break;
+            case "down":
+                newHead = new Block(head.col, head.row + 1);
+                break;
+            case "left":
+                newHead = new Block(head.col - 1, head.row);
+                break;
+            case "up":
+                newHead = new Block(head.col, head.row - 1);
+                break;
+            default: 
+                console.log("Key is not defined");
+                break;
+        }
+
+        if (this.checkCollision(newHead)) {
+            gameOver;
+            return;
+        }
+        
+        this.segments.unshift(newHead);
+
+        if (newHead.equal(apple.position)) {
+            score++
+            apple.move();
+        } else {
+            this.segments.pop();
+        }
+    };    
+}
 
 /*
 var randomColor = function () {
