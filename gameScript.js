@@ -44,11 +44,19 @@
         this.col = col;
         this.row = row;
 
-        this.drawSquare = function (color) {
+        this.drawSquare = function (color, size = "small") {
             let x = this.col * blocksize;
             let y = this.row * blocksize;
             ctx.fillStyle = color;
-            ctx.fillRect(x, y, blocksize, blocksize);
+            switch (size) {
+                case "big":
+                    ctx.fillRect(x - 1, y - 1, blocksize + 3, blocksize + 3);
+                    break;
+                default:
+                    ctx.fillRect(x, y, blocksize, blocksize);
+                    break;
+            }
+            
         };
 
         this.drawCircle = function (color) {
@@ -78,6 +86,7 @@
             this.segments.forEach(element => {
                 element.drawSquare("Blue");
             });
+            this.segments[0].drawSquare("Green", "big");
         };
 
         this.checkCollision = function(head) {
