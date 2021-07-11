@@ -1,5 +1,3 @@
-// set functions
-
 export function randomColor (colorArr) {
     let max = colorArr.length;
     return colorArr[randomInt(max)];
