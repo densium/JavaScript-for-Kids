@@ -6,32 +6,25 @@
     </head>
     <body>
         <canvas id="canvas" width="200" height="200" style="border: 1px solid black;"></canvas>
-        <script>
+        <script type="module">
             
+            // set functions            
+            import { randomColor } from "./canvasScripts.js";
+            import { randomInt } from "./canvasScripts.js";
+
             // set canvas and parameters
-            
             var canvas = document.getElementById("canvas");
             var ctx = canvas.getContext("2d");
             
-            var blocksize = 20;
+            const colorArr = ["#5E2E2C", "#A81B16", "#DB231D", "#F54F49", "#5C0F0C"];
+            const blocksize = 20;
+            const shift = canvas.height - blocksize;
+            
+            var color = randomColor(colorArr);
             var positionX = 0;
-            var shift = canvas.getAttribute("height") - blocksize;
             var positionY = randomInt(shift);
-            var color = randomColor();
             
-            // set functions
-            
-            function randomColor () {
-                let colorArr = ["#5E2E2C", "#A81B16", "#DB231D", "#F54F49", "#5C0F0C"];
-                return colorArr[Math.floor(Math.random() * colorArr.length)];
-            };
-
-            function randomInt(max) {
-                return Math.floor(Math.random() * max);
-            }
-
             // set function for interval and start interval
-
             function redrawSquare() {
                 // ctx.clearRect(0, 0, 200 ,200);
                 ctx.fillStyle = color;
@@ -41,7 +34,7 @@
                 if (positionX > 200) {
                     positionX = 0;
                     positionY = randomInt(shift);
-                    color = randomColor();
+                    color = randomColor(colorArr);
                 }
             }
             
