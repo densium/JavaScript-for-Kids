@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#canvas {
+    border: 2px solid grey;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.menu li {
+    margin-right: 5px;
+}
