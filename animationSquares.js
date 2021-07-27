@@ -21,7 +21,7 @@ function redrawSquare() {
     ctx.fillRect(positionX, positionY, blocksize, blocksize);
 
     positionX += 3;
-    if (positionX > 200) {
+    if (positionX > canvas.width) {
         positionX = 0;
         positionY = randomInt(shift);
         color = randomColor(colorArr);

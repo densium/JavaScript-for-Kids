@@ -1,3 +1,7 @@
+/**
+ * TODO Можно сделать мини игру нарисовать стенки и двигать пчелу постепенно в сторону выхода
+ *  */ 
+
 // set functions
 function drawCircle (x, y, radius, fillCircle) {
     ctx.beginPath();
@@ -47,11 +51,11 @@ var y = canvas.width / 2;
 
 // set function for interval and start interval
 function redrawBee() {
-    ctx.clearRect(0, 0, 200, 200);
+    ctx.clearRect(0, 0, 400, 400);
     drawBee(x, y);
     x = moveBee(x);
     y = moveBee(y);
-    ctx.strokeRect(0, 0, 200, 200);
+    // ctx.strokeRect(0, 0, 400, 400);
 }
 
 let intervaId = setInterval(() => redrawBee(), 20);
