@@ -28,4 +28,4 @@ function redrawSquare() {
     }
 }
 
-let intervalId = setInterval(() => redrawSquare(), 16);
+var intervalId = setInterval(() => redrawSquare(), 16);

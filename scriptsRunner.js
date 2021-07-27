@@ -10,3 +10,9 @@ function loadScript(src, buttonId) {
 
     document.head.append(script);
 }
+
+// TODO Доделать
+function stopScript() {
+    intervaId = null;
+    ctx.clearRect(0, 0, 400, 400);
+}
